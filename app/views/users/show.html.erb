@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+<h3>Welcome, <%=cookies[:current_user_name]%></h3>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<%if @user.id ==session[:current_user_id]%>
+<%@user_id.each do |friend|%>
+      <% @friend_id=friend.friend_id%>
+      <%@friends=User.find_by_id(@friend_id) %>
+      <%=@friends.name%>
+      <%=link_to("Remove",user_friend_lists_path(@friends.id), method: :delete)%>
+        <% @friends=FriendList.where("user_id=?",session[:current_user_id]) %>
+
+
+
+      <br>
+<% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_user_path(@user) %>
+<%= link_to 'Back', users_path %>
+
+<%if @user.id !=session[:current_user_id]%>
+  <%if friend?(@user.id)%>
+
+     <%=link_to("Remove",user_friend_lists_path(@user), method: :delete)%>
+  <%else%>
+    <%= button_to 'Add', user_friend_lists_path(@user), remote: true %>
+   <%end%>
+<% end %>
+
+

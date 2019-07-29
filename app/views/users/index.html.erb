@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+<br>
+
+
+<table class="table" style="width:80%">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <% @users.each do |user| %>
+
+    <tbody>     
+          <%if user.id == session[:current_user_id]%>
+
+         <%else%>
+      <tr class="info">
+         <th><%= user.name%></th>
+        <th><%= user.email %></th>
+        <td><button type="button" class="btn btn-info"><%= link_to 'Show', user %></button></td>
+       
+       <%if friend?(user.id)%>
+
+     <th><button class="btn btn-danger"><%=link_to("Remove",user_friend_lists_path(user.id), method: :delete)%></button></th>
+  <%else%>
+    <th><%= button_to 'Add', user_friend_lists_path(user.id), remote: true, class: "btn btn-primary" %></th>
+   <%end%>
+  
+        
+      
+ <%if state?(user.id)%>
+    <th><%= button_to 'Accept', user_accepts_path(user), remote: true %></th>
+      <th><%= button_to 'Reject', user_rejects_path(user), remote: true %></th>
+   <%else%>
+
+ <%end%>
+
+
+
+      </tr>
+      <%end%>
+    </tbody>
+    <%end%>
+  </table>
+
+
+
+

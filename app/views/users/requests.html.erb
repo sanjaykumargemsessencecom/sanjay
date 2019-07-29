@@ -1,0 +1,10 @@
+<%@friend_requests.each do |f_request|%>
+
+<%=f_request.name%><br>
+ <%if state?(f_request.id)%>
+    <td><%= button_to 'Accept', user_accepts_path(f_request), remote: true %></td>
+      <td><%= button_to 'Reject', user_rejects_path(f_request), remote: true %></td>
+   <%else%>
+
+ <%end%>
+<%end%>

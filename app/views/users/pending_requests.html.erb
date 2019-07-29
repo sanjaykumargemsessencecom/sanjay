@@ -1,0 +1,6 @@
+<ul>
+<%@pending_requests.each do |p_request|%>
+<li><%=p_request.name%>
+  <%=link_to("Remove",user_friend_lists_path(p_request.id), method: :delete)%></li>
+<%end%>
+<ul>
